@@ -29,6 +29,20 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
+
+/**
+*Start a TCP server to establish a socket to a python client
+*/
+var zerorpc = require("zerorpc");
+
+var serverTCP = new zerorpc.Server({
+    hello: function(name, reply) {
+        reply(null, "Hello, " + name, false);
+    }
+});
+
+serverTCP.bind("tcp://0.0.0.0:4242");
+
 /**
  * Normalize a port into a number, string, or false.
  */

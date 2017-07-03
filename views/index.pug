@@ -1,5 +1,16 @@
 extends layout
-
+block append styles
+  link(rel='stylesheet', href='/stylesheets/thermometre.css')
 block content
   h1= title
   p Welcome to #{title}
+  h2 Data monitoring :
+  h3 Temperature :
+  div.container
+    div.de
+      div.den
+        div.dene
+          div.denem
+            div.deneme!=temp + '<span>.'+ tempDot +'</span><strong>&deg;</strong>'
+  
+
