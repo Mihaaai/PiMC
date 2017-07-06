@@ -7,6 +7,7 @@
 var app = require('../app');
 var debug = require('debug')('pimc:server');
 var http = require('http');
+var socketIO = require('socket.io');
 
 /**
  * Get port from environment and store in Express.
@@ -31,17 +32,24 @@ server.on('listening', onListening);
 
 
 /**
-*Start a TCP server to establish a socket to a python client
+*Open a socketIO instance to communicate with the browser and the Python client
 */
-var zerorpc = require("zerorpc");
+var io = socketIO(server);
 
-var serverTCP = new zerorpc.Server({
-    hello: function(name, reply) {
-        reply(null, "Hello, " + name, false);
-    }
+io.on('connection',function(socket){
+  console.log('User connected');
+  
+  socket.on('scan_ready',function(temp){
+    console.log('Pi scanned these values');
+    io.emit('scan_results',temp)
+  })
+
+  socket.on('monitor_sensors',function(){
+    io.emit('scan');
+  })
+
 });
 
-serverTCP.bind("tcp://0.0.0.0:4242");
 
 /**
  * Normalize a port into a number, string, or false.
