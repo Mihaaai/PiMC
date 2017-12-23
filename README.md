@@ -8,4 +8,4 @@ Sensor information is gathered with a python script.
 
 Currently working on : transfering values from python with a socket to the nodeJS server.
 
-Current issue : We lack an raspberry Pi, our support teacher got his back for now.
+Current issue : We lack an raspberry Pi, our support teacher can't help us with one anymore.
